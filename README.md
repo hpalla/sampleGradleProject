@@ -26,13 +26,13 @@ open source brain project: https://github.com/WalnutiQ/WalnutiQ
 2. To run all tests in the Linux or Mac terminal type: 
    ```
    prompt/SampleGradleProject> ./gradlew clean # cleans old compiled code
-   prompt/SampleGradleProject> ./gradlew test
+   prompt/SampleGradleProject> ./gradlew test --init-script init.gradle
    ```
 
 3. To run all tests in the Windows command prompt type:
    ```
-   prompt/SampleGradleProject> gradlew.bat clean 
-   prompt/SampleGradleProject> gradlew.bat test
+   prompt/SampleGradleProject> gradlew.bat clean --init-script init.gradle
+   prompt/SampleGradleProject> gradlew.bat test --init-script init.gradle
    ```
 
 ## How to run `Main.java` through command line in Linux/Mac/Windows with Gradle
