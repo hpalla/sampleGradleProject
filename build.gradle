@@ -1,0 +1,47 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+/*repositories {
+    mavenCentral()
+}*/
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+    compile 'activemq:activemq-core:1.5'
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+// create Gradle wrapper with command line `gradle wrapper` in terminal
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+
+ task showRepositories {
+     doLast {
+         repositories.each {
+             println "repository: ${it.name} ('${it.url}')"
+             println "profile: ${project.getProperty('profile')}"
+         }
+     }
+}
+
+mainClassName = "Main" // Main.java is located in src/main/java/Main.java

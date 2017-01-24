@@ -1,0 +1,33 @@
+apply plugin:EnterpriseRepositoryPlugin
+
+class EnterpriseRepositoryPlugin implements Plugin<Gradle> {
+
+    private static String MAVEN_URL = "https://repo1.maven.org/maven2/"
+    private static String JCENTER_URL = "https://jcenter.bintray.com/"
+
+    void apply(Gradle gradle) {
+        // ONLY USE ENTERPRISE REPO FOR DEPENDENCIES
+        gradle.allprojects{ project ->
+            project.repositories {
+                // Remove all repositories not pointing to the enterprise repository url
+                all { ArtifactRepository repo ->
+                    if (project.hasProperty('profile') &&
+                          project.getProperty('profile') == 'release' && 
+                         repo.url.toString().equals(MAVEN_URL)) {
+                        project.logger.lifecycle "Repository ${repo.url} removed. Only Non Eval Repositories are allowed"
+                        remove repo
+                    }
+                }
+				// add the enterprise repository
+				maven {
+					name "MAVEN2"
+					url MAVEN_URL
+				}
+				jcenter {
+					name "JCENTER"
+					url JCENTER_URL
+				}
+            }
+        }
+    }
+}
